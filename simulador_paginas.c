@@ -61,11 +61,11 @@ ReferenceString carregar_reference_de_trace(const char *filename)
         unsigned long addr = hex_to_ulong(addr_str);
         unsigned long page = addr >> OFFSET_BITS;
 
-        if (page == anterior) 
+        if (page == anterior)
             continue; // ignora acessos repetidos à mesma página
 
         anterior = page;
-        
+
         ref.pages[ref.size++] = page;
     }
     fclose(f);
@@ -233,9 +233,9 @@ int main(int argc, char *argv[])
     fprintf(csv, ",");
     fprintf(csv, "FIFO");
     fprintf(csv, ",");
-    fprintf(csv, "OPT");
-    fprintf(csv, ",");
     fprintf(csv, "miss_rate_FIFO");
+    fprintf(csv, ",");
+    fprintf(csv, "OPT");
     fprintf(csv, ",");
     fprintf(csv, "miss_rate_OPT");
     fprintf(csv, "\n");
@@ -245,9 +245,9 @@ int main(int argc, char *argv[])
         fprintf(csv, "%d", frames_list[i]);
         long f_fifo = simular_FIFO(ref, frames_list[i]);
         fprintf(csv, ",%ld", f_fifo);
+        fprintf(csv, ",%.6f", (double)f_fifo / ref.size);
         long f_opt = simular_OPT(ref, frames_list[i]);
         fprintf(csv, ",%ld", f_opt);
-        fprintf(csv, ",%.6f", (double)f_fifo / ref.size);
         fprintf(csv, ",%.6f", (double)f_opt / ref.size);
         fprintf(csv, "\n");
     }
